@@ -1,16 +1,3 @@
-// ================================================================
-//  Toronto Climate Explorer — Enhanced Interactive Dashboard
-//  Features:
-//    · Focus + context brush (zoom/pan over time)
-//    · Dual y-axis: Max Temp (line) + Precipitation (bars)
-//    · Scatterplot: Temp vs Precip, colour-coded by season
-//    · Linear regression trend line on scatter
-//    · Season filter (dynamic query) — buttons + legend
-//    · Period statistics panel (live-updating)
-//    · Crosshair + tooltip on focus hover
-//    · Animated enter/update/exit transitions
-// ================================================================
-
 // ── Colour Palette ───────────────────────────────────────────────
 const C = {
     temp:   '#ff7b72',
@@ -99,12 +86,9 @@ const C = {
   let activeSeason = 'all';
   let selDates = null;
   
-  // ================================================================
-  //  Load & Transform Data
-  // ================================================================
+  //  Load Data
   d3.csv('weatherstats_toronto_daily.csv').then(raw => {
   
-    // Clean + type-cast
     let data = raw
       .map(d => ({
         date:    parseDate(d.date),
@@ -265,9 +249,7 @@ const C = {
       setFilter(this.dataset.season);
     });
   
-    // ================================================================
     //  Core Update Functions
-    // ================================================================
   
     function onBrush(event) {
       const sel = event.selection;
@@ -435,9 +417,7 @@ const C = {
       d3.select('#stat-max-precip').text(`${fmt(wetD?.precip)}mm`);
     }
   
-    // ================================================================
     //  Hover / Tooltip Handlers
-    // ================================================================
     const bisect = d3.bisector(d => d.date).left;
   
     function onFocusMove(event) {
