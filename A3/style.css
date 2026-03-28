@@ -1,0 +1,280 @@
+/* ============================================================
+   Toronto Climate Explorer — Dark Meteorological Theme
+   ============================================================ */
+
+   :root {
+    --bg:      #0d1117;
+    --panel:   #161b22;
+    --panel2:  #1c2128;
+    --border:  #30363d;
+    --grid:    #21262d;
+    --text:    #e6edf3;
+    --muted:   #7d8590;
+    --temp:    #ff7b72;
+    --cold:    #79c0ff;
+    --precip:  #58a6ff;
+    --snow:    #cdd9e5;
+    --winter:  #58a6ff;
+    --spring:  #56d364;
+    --summer:  #f0883e;
+    --fall:    #d2a8ff;
+  }
+  
+  *, *::before, *::after { box-sizing: border-box; }
+  
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 24px 24px 8px;
+    min-height: 100vh;
+  }
+  
+  /* ── Dashboard Grid ──────────────────────────────────────────── */
+  #dashboard {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 14px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  /* ── Header ──────────────────────────────────────────────────── */
+  #header {
+    grid-column: 1 / 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  #title-block h1 {
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    letter-spacing: 4px;
+    color: var(--text);
+    line-height: 1;
+  }
+  
+  .subtitle {
+    margin: 5px 0 0;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.3px;
+  }
+  
+  /* ── Season Filter Buttons ───────────────────────────────────── */
+  #season-filters {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  
+  .filter-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 2px;
+  }
+  
+  .season-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding: 5px 13px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    outline: none;
+  }
+  
+  .season-btn:hover { color: var(--text); border-color: var(--text); }
+  
+  .season-btn.active                      { color: var(--text);    border-color: var(--muted); background: rgba(255,255,255,0.06); }
+  .season-btn.winter.active               { color: var(--winter);  border-color: var(--winter); background: rgba(88,166,255,0.12); }
+  .season-btn.spring.active               { color: var(--spring);  border-color: var(--spring); background: rgba(86,211,100,0.12); }
+  .season-btn.summer.active               { color: var(--summer);  border-color: var(--summer); background: rgba(240,136,62,0.12); }
+  .season-btn.fall.active                 { color: var(--fall);    border-color: var(--fall);   background: rgba(210,168,255,0.12); }
+  
+  /* ── Panels ──────────────────────────────────────────────────── */
+  .view-panel {
+    background: var(--panel);
+    border-radius: 6px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  
+  h3 {
+    margin: 0 0 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+  
+  /* ── Layout: Left Timeline ───────────────────────────────────── */
+  #timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  /* ── Layout: Right Panel ─────────────────────────────────────── */
+  #right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  /* ── Stats Grid ──────────────────────────────────────────────── */
+  #stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  
+  .stat-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 11px 12px;
+    transition: border-color 0.2s;
+  }
+  
+  .stat-card:hover { border-color: var(--muted); }
+  
+  .stat-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+    transition: color 0.3s;
+  }
+  
+  .stat-value.temp { color: var(--temp); }
+  .stat-value.cold { color: var(--cold); }
+  .stat-value.precip { color: var(--precip); }
+  
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.3px;
+  }
+  
+  /* ── Season Legend ───────────────────────────────────────────── */
+  #season-legend {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, opacity 0.2s;
+    user-select: none;
+  }
+  
+  .legend-item:hover { color: var(--text); }
+  
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  /* ── Tooltip ─────────────────────────────────────────────────── */
+  .tooltip {
+    position: fixed;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 5px;
+    pointer-events: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text);
+    line-height: 1.65;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.12s;
+    z-index: 9999;
+    max-width: 220px;
+  }
+  
+  .tooltip strong {
+    display: block;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+  
+  /* ── SVG Styles ──────────────────────────────────────────────── */
+  .axis-label {
+    font-size: 10px;
+    fill: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  
+  /* D3 axis overrides */
+  .tick text {
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-size: 9.5px !important;
+    fill: var(--muted) !important;
+  }
+  .domain { stroke: var(--border) !important; }
+  .tick line { stroke: var(--border) !important; }
+  .grid-lines .tick line { stroke: var(--grid) !important; stroke-dasharray: 2 5; }
+  .grid-lines .domain { display: none; }
+  
+  /* Brush */
+  .brush .selection {
+    fill: var(--summer);
+    fill-opacity: 0.14;
+    stroke: var(--summer);
+    stroke-width: 1px;
+  }
+  .brush .handle--w, .brush .handle--e {
+    fill: var(--summer);
+    opacity: 0.7;
+  }
+  
+  /* ── Footer ──────────────────────────────────────────────────── */
+  #footer {
+    max-width: 1440px;
+    margin: 10px auto 0;
+    padding: 10px 0 6px;
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  
+  #footer a { color: var(--muted); text-decoration: underline; }
+  #footer a:hover { color: var(--text); }

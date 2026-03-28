@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toronto Climate Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div id="dashboard">
+
+    <!-- HEADER -->
+    <div id="header">
+      <div id="title-block">
+        <h1>TORONTO CLIMATE EXPLORER</h1>
+        <p class="subtitle">Daily weather records · Brush the context strip to zoom · Hover for details</p>
+      </div>
+      <div id="season-filters">
+        <span class="filter-label">Filter by season ↓</span>
+        <button class="season-btn active" data-season="all">ALL</button>
+        <button class="season-btn winter" data-season="winter">WINTER</button>
+        <button class="season-btn spring" data-season="spring">SPRING</button>
+        <button class="season-btn summer" data-season="summer">SUMMER</button>
+        <button class="season-btn fall"   data-season="fall">FALL</button>
+      </div>
+    </div>
+
+    <!-- LEFT: TIMELINE -->
+    <div id="timeline-container">
+      <div id="focus-view" class="view-panel">
+        <h3>Daily Max Temperature &amp; Precipitation — Focus View</h3>
+      </div>
+      <div id="context-view" class="view-panel">
+        <h3>Drag to select timeframe</h3>
+      </div>
+    </div>
+
+    <!-- RIGHT: STATS + SCATTER -->
+    <div id="right-panel">
+      <div id="stats-view" class="view-panel">
+        <h3>Period Statistics</h3>
+        <div id="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-days">—</div>
+            <div class="stat-label">Days selected</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value temp" id="stat-avg-temp">—</div>
+            <div class="stat-label">Avg max temp</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value temp" id="stat-max-temp">—</div>
+            <div class="stat-label">Hottest day</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value temp cold" id="stat-min-temp">—</div>
+            <div class="stat-label">Coldest day</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value precip" id="stat-total-precip">—</div>
+            <div class="stat-label">Total precip</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value precip" id="stat-max-precip">—</div>
+            <div class="stat-label">Wettest day</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="scatter-view" class="view-panel">
+        <h3>Temperature vs. Precipitation — coloured by season</h3>
+        <div id="season-legend"></div>
+      </div>
+    </div>
+
+  </div><!-- /dashboard -->
+
+  <div id="tooltip" class="tooltip"></div>
+
+  <footer id="footer">
+    Data: <a href="https://www.weatherstats.ca" target="_blank">weatherstats.ca</a> · Toronto Pearson International Airport · 2000–present
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
